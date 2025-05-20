@@ -9,7 +9,7 @@
  * @param[in] path is file path to hexdump output
  * @param[in] pc is program counter
  *
- * @return number of bytes of the op
+ * @return success or failure
  */
 int init8080Op(const char* path, int pc);
 
@@ -18,8 +18,8 @@ int init8080Op(const char* path, int pc);
  *
  * Prints Opcode of program instruction based on case
  *
- * @param[in] path is file path to hexdump output
- * @param[in] pc is program counter
+ * @param[in] codebuffer is a valid pointer to 8080 assembly
+ * @param[in] pc is offset into code
  *
  * @return number of bytes of the op
  */
