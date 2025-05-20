@@ -1,0 +1,7 @@
+# Notable files
+
+# Buildables
+*.o
+
+# Folders
+.vscode/

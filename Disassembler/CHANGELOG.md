@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 5/19/2025
 
+### Added
+- Disassembler header and source files
+- README project statements and goals
+- CHANGELOG information for project
+
 ### Changed
-- README contains relavant information including project description
-- CHANGELOG now contains meaningful information for project changes
+- LICENSE adjusted to MIT copyright
