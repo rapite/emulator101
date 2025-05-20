@@ -7,6 +7,7 @@
 /**
  * @brief Initializes Disassembler
  */
+// TODO: Implement main loop in this function
 int init8080Op(const char* path, int pc) {
     FILE* fp = fopen(path, "r");
     if (!fp) {
@@ -16,7 +17,7 @@ int init8080Op(const char* path, int pc) {
 }
 
 // TODO: Implement all Opcodes from 0x00 to 0xff
-int Disassemble8080Op(unsigned char *codebuffer, int pc) {    
+int Disassemble8080Op(unsigned char *codebuffer, int pc) {
     unsigned char *code = &codebuffer; 
     int opbytes = 1;
     printf ("%04x ", pc);
