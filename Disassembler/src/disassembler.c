@@ -11,18 +11,34 @@
 int init8080Op(const char* path, int pc) {
     FILE* fp = fopen(path, "r");
     if (!fp) {
-        perror("Failed to open path");
-        return -1;
+        printf("Failed to open %s\n", path);
+        exit(1);
     }
+    //Get the file size and read it into a memory buffer    
+    fseek(fp, 0L, SEEK_END);    
+    int fsize = ftell(fp);    
+    fseek(fp, 0L, SEEK_SET);    
+
+    unsigned char *buffer=malloc(fsize);    
+
+    fread(buffer, fsize, 1, fp);    
+    fclose(fp);    
+
+    int pc = 0;    
+
+    while (pc < fsize)    
+    {    
+        pc += Disassemble8080Op(buffer, pc);    
+    }  
 }
 
 // TODO: Implement all Opcodes from 0x00 to 0xff
 int Disassemble8080Op(unsigned char *codebuffer, int pc) {
-    unsigned char *code = &codebuffer; 
+    unsigned char *code = &codebuffer[pc];
     int opbytes = 1;
     printf ("%04x ", pc);
     switch (*code) {
-        case 0x00: printf("0x00"); break;
+        case 0x00: printf("NOP"); break;
         case 0x01: printf("0x01"); break;
         case 0x02: printf("0x02"); break;
         case 0x03: printf("0x03"); break;
