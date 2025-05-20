@@ -17,6 +17,7 @@ The major goals of this project is to learn the following by order of importance
 - How to write proper tests
 - How to build good makefiles
 - How to write a disassembler
+- How to use gcc, Make, and CMake
 - How to use good C (or even general) styling formats
 
 ## Build Instructions
