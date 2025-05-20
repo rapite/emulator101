@@ -14,7 +14,7 @@ The major goals of this project is to learn the following by order of importance
 - How to maintain a C project on github
 - How to maintain a proper readme and changelog
 - How to use cppreference as the primary resource
-- How to write proper tests
+- How to write unit tests with Criterion
 - How to build good makefiles
 - How to write a disassembler
 - How to use gcc, Make, and CMake
