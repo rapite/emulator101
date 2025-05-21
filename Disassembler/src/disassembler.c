@@ -36,7 +36,7 @@ int init8080Op(const char* path) {
  *
  * STEPS:
  * - Implement all Opcodes from 0x00 to 0xff
- * - Remove all "non instruction Opcodes"
+ * - Remove invalid opcodes
  */
 int disassemble8080Op(unsigned char *codebuffer, int pc) {
     unsigned char *code = &codebuffer[pc];
@@ -51,7 +51,6 @@ int disassemble8080Op(unsigned char *codebuffer, int pc) {
         case 0x05: printf("0x05"); break;
         case 0x06: printf("0x06"); break;
         case 0x07: printf("0x07"); break;
-        case 0x08: printf("0x08"); break;
         case 0x09: printf("0x09"); break;
         case 0x0A: printf("0x0A"); break;
         case 0x0B: printf("0x0B"); break;
@@ -59,7 +58,6 @@ int disassemble8080Op(unsigned char *codebuffer, int pc) {
         case 0x0D: printf("0x0D"); break;
         case 0x0E: printf("0x0E"); break;
         case 0x0F: printf("0x0F"); break;
-        case 0x10: printf("0x10"); break;
         case 0x11: printf("0x11"); break;
         case 0x12: printf("0x12"); break;
         case 0x13: printf("0x13"); break;
@@ -67,7 +65,6 @@ int disassemble8080Op(unsigned char *codebuffer, int pc) {
         case 0x15: printf("0x15"); break;
         case 0x16: printf("0x16"); break;
         case 0x17: printf("0x17"); break;
-        case 0x18: printf("0x18"); break;
         case 0x19: printf("0x19"); break;
         case 0x1A: printf("0x1A"); break;
         case 0x1B: printf("0x1B"); break;
@@ -75,7 +72,6 @@ int disassemble8080Op(unsigned char *codebuffer, int pc) {
         case 0x1D: printf("0x1D"); break;
         case 0x1E: printf("0x1E"); break;
         case 0x1F: printf("0x1F"); break;
-        case 0x20: printf("0x20"); break;
         case 0x21: printf("0x21"); break;
         case 0x22: printf("0x22"); break;
         case 0x23: printf("0x23"); break;
@@ -83,7 +79,6 @@ int disassemble8080Op(unsigned char *codebuffer, int pc) {
         case 0x25: printf("0x25"); break;
         case 0x26: printf("0x26"); break;
         case 0x27: printf("0x27"); break;
-        case 0x28: printf("0x28"); break;
         case 0x29: printf("0x29"); break;
         case 0x2A: printf("0x2A"); break;
         case 0x2B: printf("0x2B"); break;
@@ -91,7 +86,6 @@ int disassemble8080Op(unsigned char *codebuffer, int pc) {
         case 0x2D: printf("0x2D"); break;
         case 0x2E: printf("0x2E"); break;
         case 0x2F: printf("0x2F"); break;
-        case 0x30: printf("0x30"); break;
         case 0x31: printf("0x31"); break;
         case 0x32: printf("0x32"); break;
         case 0x33: printf("0x33"); break;
@@ -99,7 +93,6 @@ int disassemble8080Op(unsigned char *codebuffer, int pc) {
         case 0x35: printf("0x35"); break;
         case 0x36: printf("0x36"); break;
         case 0x37: printf("0x37"); break;
-        case 0x38: printf("0x38"); break;
         case 0x39: printf("0x39"); break;
         case 0x3A: printf("0x3A"); break;
         case 0x3B: printf("0x3B"); break;
@@ -246,7 +239,6 @@ int disassemble8080Op(unsigned char *codebuffer, int pc) {
         case 0xC8: printf("0xC8"); break;
         case 0xC9: printf("0xC9"); break;
         case 0xCA: printf("0xCA"); break;
-        case 0xCB: printf("0xCB"); break;
         case 0xCC: printf("0xCC"); break;
         case 0xCD: printf("0xCD"); break;
         case 0xCE: printf("0xCE"); break;
@@ -260,11 +252,9 @@ int disassemble8080Op(unsigned char *codebuffer, int pc) {
         case 0xD6: printf("0xD6"); break;
         case 0xD7: printf("0xD7"); break;
         case 0xD8: printf("0xD8"); break;
-        case 0xD9: printf("0xD9"); break;
         case 0xDA: printf("0xDA"); break;
         case 0xDB: printf("0xDB"); break;
         case 0xDC: printf("0xDC"); break;
-        case 0xDD: printf("0xDD"); break;
         case 0xDE: printf("0xDE"); break;
         case 0xDF: printf("0xDF"); break;
         case 0xE0: printf("0xE0"); break;
@@ -280,7 +270,6 @@ int disassemble8080Op(unsigned char *codebuffer, int pc) {
         case 0xEA: printf("0xEA"); break;
         case 0xEB: printf("0xEB"); break;
         case 0xEC: printf("0xEC"); break;
-        case 0xED: printf("0xED"); break;
         case 0xEE: printf("0xEE"); break;
         case 0xEF: printf("0xEF"); break;
         case 0xF0: printf("0xF0"); break;
@@ -296,7 +285,6 @@ int disassemble8080Op(unsigned char *codebuffer, int pc) {
         case 0xFA: printf("0xFA"); break;
         case 0xFB: printf("0xFB"); break;
         case 0xFC: printf("0xFC"); break;
-        case 0xFD: printf("0xFD"); break;
         case 0xFE: printf("0xFE"); break;
         case 0xFF: printf("0xFF"); break;
     }

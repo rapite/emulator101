@@ -5,9 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 5/21/2025
+
+### Removed
+- invalid 8080opcodes
+    - 0x08, 0x10, 0x18, 0x20, 0x28, 0x30, 0x38, 0xcb, 0xd9, 0xdd, 0xed, 0xfd
+
 ## [0.1.1] - 5/20/2025
 
-### Addded
+### Added
 - emulator101 starter code to disassembler.c
 - Test case skeletons using Criterion
 
