@@ -23,6 +23,6 @@ int init8080Op(const char* path, int pc);
  *
  * @return number of bytes of the op
  */
-int Disassemble8080Op(unsigned char *codebuffer, int pc);
+int disassemble8080Op(unsigned char *codebuffer, int pc);
 
 #endif
