@@ -8,7 +8,7 @@
  * @brief Initializes Disassembler
  */
 // TODO: Implement main loop in this function
-int init8080Op(const char* path, int pc) {
+int init8080Op(const char* path) {
     FILE* fp = fopen(path, "r");
     if (!fp) {
         printf("Failed to open %s\n", path);
@@ -27,12 +27,18 @@ int init8080Op(const char* path, int pc) {
     int pc = 0;
 
     while (pc < fsize) {    
-        pc += Disassemble8080Op(buffer, pc);
-    }  
+        pc += disassemble8080Op(buffer, pc);
+    }
+    return 0;
 }
-
-// TODO: Implement all Opcodes from 0x00 to 0xff
-int Disassemble8080Op(unsigned char *codebuffer, int pc) {
+/**
+ * TODO: Implement full code disassembler
+ *
+ * STEPS:
+ * - Implement all Opcodes from 0x00 to 0xff
+ * - Remove all "non instruction Opcodes"
+ */
+int disassemble8080Op(unsigned char *codebuffer, int pc) {
     unsigned char *code = &codebuffer[pc];
     int opbytes = 1;
     printf ("%04x ", pc);
@@ -293,8 +299,6 @@ int Disassemble8080Op(unsigned char *codebuffer, int pc) {
         case 0xFD: printf("0xFD"); break;
         case 0xFE: printf("0xFE"); break;
         case 0xFF: printf("0xFF"); break;
-        return opbytes;
-   }
+    }
+    return opbytes;
 }
-
-

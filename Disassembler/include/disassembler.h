@@ -11,7 +11,7 @@
  *
  * @return success or failure
  */
-int init8080Op(const char* path, int pc);
+int init8080Op(const char* path);
 
 /**
  * @brief Disassembles 8080Op
