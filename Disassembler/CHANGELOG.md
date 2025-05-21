@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Addded
 - emulator101 starter code to disassembler.c
+- Test case skeletons using Criterion
 
 ### Changed
 - Updated goals
