@@ -1,8 +1,39 @@
-#include <stdio.h>
+#include <criterion/criterion.h>
 #include "../include/disassembler.h"
 
 // TODO: Implement tests
-int main (int argc, char* argv[]) {
-
-    return 0;
+Test(disassembler, dis_size_return) {
+    // unsigned char * -> pointer to raw bytes
+    int pc = 0;
+    // register code is not real
+    unsigned char code1[16] = {
+        0x00, // NOP (1)
+        0x00, // NOP (1)
+        0x00, // NOP (1)
+        0xc3, // JMP adr (3)
+        0xd4,
+        0x18,
+        0x00, // NOP (1)
+        0x00, // NOP (1)
+        0xf5, // PUSH PSW (1)
+        0xc5, // PUSH B (1)
+        0xd5, // PUSH D (1)
+        0xe5, // PUSH H (1)
+        0xc3, // JUMP $008c (3)
+        0x8c,
+        0x00,
+        0x00 // NOP
+    };
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 3;
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 3;
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
 }
