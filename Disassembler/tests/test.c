@@ -1,8 +1,15 @@
+#include <stdio.h>
 #include <criterion/criterion.h>
 #include "../include/disassembler.h"
 
-// TODO: Implement tests
-Test(disassembler, dis_size_return) {
+/**
+ * TODO: Write More Robust Tests
+ *
+ * STEPS:
+ * - Write more robust dis_OpSize tests
+ * - Write robust initialization test
+ */
+Test(disassembler, dis_OpSize) {
     // unsigned char * -> pointer to raw bytes
     int pc = 0;
     // register code is not real
@@ -24,16 +31,16 @@ Test(disassembler, dis_size_return) {
         0x00,
         0x00 // NOP
     };
-    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
-    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
-    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
-    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 3;
-    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
-    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
-    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
-    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
-    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
-    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
-    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 3;
-    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1;
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1; printf("\n");
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1; printf("\n");
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1; printf("\n");
+    cr_expect(disassemble8080Op(code1, pc) == 3); pc += 3; printf("\n");
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1; printf("\n");
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1; printf("\n");
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1; printf("\n");
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1; printf("\n");
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1; printf("\n");
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1; printf("\n");
+    cr_expect(disassemble8080Op(code1, pc) == 3); pc += 3; printf("\n");
+    cr_expect(disassemble8080Op(code1, pc) == 1); pc += 1; printf("\n");
 }
