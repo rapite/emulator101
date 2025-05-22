@@ -6,7 +6,7 @@
 *.o
 
 #files
-src/main.c
+Disassembler/src/main.c
 
 # Folders
 .vscode/
