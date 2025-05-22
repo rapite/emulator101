@@ -41,11 +41,33 @@ Test(disassembler, opcode_MVI_A, .init = setup_redirect) {
 // 0x01 0x11 0x21 0x22 0x2a 0x31 0x32 0x3a 0xc2 0xc3 0xc4
 // 0xca 0xcc 0xcd 0xd2 0xd4 0xda 0xdc 0xe2 0xe4 0xea 0xec
 // 0xf2 0xf4 0xfa 0xfc
-Test(disassembler, opcode_LXI, .init = setup_redirect) {
-    unsigned char code[] = { 0x11, 0x34, 0x12 }; // 0x11
+// LXI Instructions
+Test(disassembler, opcode_LXI_B, .init = setup_redirect) {
+    unsigned char code[] = { 0x01, 0x34, 0x12 }; // 0x01
     int len = disassemble8080Op(code, 0);
     cr_assert_eq(len, 3);
-    cr_assert_stdout_eq_str("0000 11 34 12 LXI D, #0x1234\n");
+    cr_assert_stdout_eq_str("0000 01 34 12 LXI B, #0x1234\n"); // B <- byte 3, C <- byte 2
+}
+
+Test(disassembler, opcode_LXI_D, .init = setup_redirect) {
+    unsigned char code[] = { 0x11, 0x34, 0x12 }; // 0x11 
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 3);
+    cr_assert_stdout_eq_str("0000 11 34 12 LXI D, #0x1234\n"); // D <- byte 3, E <- byte 2
+}
+
+Test(disassembler, opcode_LXI_H, .init = setup_redirect) {
+    unsigned char code[] = { 0x21, 0x34, 0x12 }; // 0x21
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 3);
+    cr_assert_stdout_eq_str("0000 21 34 12 LXI H, #0x1234\n"); // H <- byte 3, L <- byte 2
+}
+
+Test(disassembler, opcode_LXI_SP, .init = setup_redirect) {
+    unsigned char code[] = { 0x31, 0x34, 0x12 }; // 0x31
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 3);
+    cr_assert_stdout_eq_str("0000 31 34 12 LXI H, #0x1234\n"); // SP.hi <- byte 3, SP.lo <- byte 2
 }
 
 Test(disassembler, opcode_JMP, .init = setup_redirect) {
