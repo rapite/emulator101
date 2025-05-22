@@ -41,9 +41,6 @@ Test(disassembler, opcode_MVI_A, .init = setup_redirect) {
 }
 
 // 3-Byte Instructions
-// 0x22 0x2a 0x32 0x3a 0xc2 0xc3 0xc4
-// 0xca 0xcc 0xcd 0xd2 0xd4 0xda 0xdc 0xe2 0xe4 0xea 0xec
-// 0xf2 0xf4 0xfa 0xfc
 // LXI Instructions
 Test(disassembler, opcode_LXI_B, .init = setup_redirect) {
     unsigned char code[] = { 0x01, 0x34, 0x12 }; // 0x01
@@ -71,6 +68,13 @@ Test(disassembler, opcode_LXI_SP, .init = setup_redirect) {
     int len = disassemble8080Op(code, 0);
     cr_assert_eq(len, 3);
     cr_assert_stdout_eq_str("0000 31 34 12 LXI H, #0x1234\n"); // SP.hi <- byte 3, SP.lo <- byte 2
+}
+// SHLD
+Test(disassembler, opcode_SHLD, .init = setup_redirect) {
+    unsigned char code[] = { 0x22, 0x34, 0x12 }; // 0x22
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 3);
+    cr_assert_stdout_eq_str("0000 22 34 12 SHLD $1234\n"); // (adr) <-L; (adr+1)<-H
 }
 
 Test(disassembler, opcode_JMP, .init = setup_redirect) {
