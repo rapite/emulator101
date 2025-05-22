@@ -3,7 +3,7 @@
 #include "../include/disassembler.h"
 
 int main() {
-    unsigned char codebuffer[] = {0x00};
+    unsigned char codebuffer[] = {0x11, 0x34, 0x12};
     disassemble8080Op(codebuffer, 0);
     return 0;
 }
