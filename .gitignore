@@ -5,6 +5,9 @@
 # Buildables
 *.o
 
+#files
+src/main.c
+
 # Folders
 .vscode/
 invaders/
