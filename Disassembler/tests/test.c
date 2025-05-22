@@ -12,6 +12,7 @@ void setup_redirect(void) {
  * TODO: Evaluate the quality of gptTests
  *
  * STEPS:
+ * - Test all 3 Byte instructions
  */
 // 1-Byte Instructions
 Test(disassembler, opcode_NOP, .init = setup_redirect) {
@@ -37,6 +38,16 @@ Test(disassembler, opcode_MVI_A, .init = setup_redirect) {
 }
 
 // 3-Byte Instructions
+// 0x01 0x11 0x21 0x22 0x2a 0x31 0x32 0x3a 0xc2 0xc3 0xc4
+// 0xca 0xcc 0xcd 0xd2 0xd4 0xda 0xdc 0xe2 0xe4 0xea 0xec
+// 0xf2 0xf4 0xfa 0xfc
+Test(disassembler, opcode_LXI, .init = setup_redirect) {
+    unsigned char code[] = { 0x11, 0x34, 0x12 }; // 0x11
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 3);
+    cr_assert_stdout_eq_str("0000 11 34 12 LXI D, #0x1234\n");
+}
+
 Test(disassembler, opcode_JMP, .init = setup_redirect) {
     unsigned char code[] = { 0xC3, 0xD4, 0x18 };
     int len = disassemble8080Op(code, 0);
