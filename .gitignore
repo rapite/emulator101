@@ -1,5 +1,6 @@
 # executables
-Diassembler/test
+*test
+*main
 
 # Buildables
 *.o
