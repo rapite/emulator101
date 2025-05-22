@@ -9,7 +9,7 @@ void setup_redirect(void) {
 }
 
 /**
- * TODO: Write More Robust Tests
+ * TODO: Evaluate the quality of 
  *
  * STEPS:
  * - Write more robust dis_OpSize tests
@@ -57,6 +57,7 @@ Test(disassembler, disassemble_known_opcodes, .init = setup_redirect) {
     );
 }
 
+// 1-Byte Instructions
 Test(disassembler, opcode_NOP, .init = setup_redirect) {
     unsigned char code[] = { 0x00 };
     int len = disassemble8080Op(code, 0);
@@ -101,7 +102,6 @@ Test(disassembler, incomplete_JMP, .init = setup_redirect) {
     cr_assert(len <= 2); // Adjust depending on your function's behavior
     // Optional: check output if you emit a placeholder/error
 }
-
 
 // Unknown Opcode
 Test(disassembler, unknown_opcode, .init = setup_redirect) {
