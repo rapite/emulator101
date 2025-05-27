@@ -98,7 +98,7 @@ int disassemble8080Op(unsigned char *codebuffer, int pc) {
         case 0x36: printf("%-7.2X\n", *code); opbytes = 2; break;
         case 0x37: printf("%-7.2X\n", *code); break;
         case 0x39: printf("%-7.2X\n", *code); break;
-        case 0x3A: printf("%.2X %.2X %.2X SHLD $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
+        case 0x3A: printf("%.2X %.2X %.2X LDA $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
         case 0x3B: printf("%-7.2X\n", *code); break;
         case 0x3C: printf("%-7.2X\n", *code); break;
         case 0x3D: printf("%-7.2X\n", *code); break;
@@ -234,61 +234,61 @@ int disassemble8080Op(unsigned char *codebuffer, int pc) {
         case 0xBF: printf("%-7.2X\n", *code); break;
         case 0xC0: printf("%-7.2X\n", *code); break;
         case 0xC1: printf("%-7.2X\n", *code); break;
-        case 0xC2: printf("%.2X %.2X %.2X SHLD $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
-        case 0xC3: printf("%.2X %.2X %.2X SHLD $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO 
-        case 0xC4: printf("%.2X %.2X %.2X SHLD $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
+        case 0xC2: printf("%.2X %.2X %.2X JNZ $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
+        case 0xC3: printf("%.2X %.2X %.2X JMP $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO 
+        case 0xC4: printf("%.2X %.2X %.2X CNZ $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
         case 0xC5: printf("%-7.2X\n", *code); break;
         case 0xC6: printf("%-7.2X\n", *code); opbytes = 2; break;
         case 0xC7: printf("%-7.2X\n", *code); break;
         case 0xC8: printf("%-7.2X\n", *code); break;
         case 0xC9: printf("%-7.2X\n", *code); break;
-        case 0xCA: printf("%.2X %.2X %.2X SHLD $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
-        case 0xCC: printf("%.2X %.2X %.2X SHLD $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
-        case 0xCD: printf("%.2X %.2X %.2X SHLD $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
+        case 0xCA: printf("%.2X %.2X %.2X JZ $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
+        case 0xCC: printf("%.2X %.2X %.2X CZ $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
+        case 0xCD: printf("%.2X %.2X %.2X CALL $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
         case 0xCE: printf("%-7.2X\n", *code); opbytes = 2; break;
         case 0xCF: printf("%-7.2X\n", *code); break;
         case 0xD0: printf("%-7.2X\n", *code); break;
         case 0xD1: printf("%-7.2X\n", *code); break;
-        case 0xD2: printf("%.2X %.2X %.2X SHLD $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
+        case 0xD2: printf("%.2X %.2X %.2X JNC $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
         case 0xD3: printf("%-7.2X\n", *code); opbytes = 2; break;
-        case 0xD4: printf("%-7.2X\n", *code); opbytes = 3; break;
+        case 0xD4: printf("%.2X %.2X %.2X CNC $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
         case 0xD5: printf("%-7.2X\n", *code); break;
         case 0xD6: printf("%-7.2X\n", *code); opbytes = 2; break;
         case 0xD7: printf("%-7.2X\n", *code); break;
         case 0xD8: printf("%-7.2X\n", *code); break;
-        case 0xDA: printf("%.2X %.2X %.2X SHLD $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
+        case 0xDA: printf("%.2X %.2X %.2X JC $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
         case 0xDB: printf("%-7.2X\n", *code); opbytes = 2; break;
-        case 0xDC: printf("%.2X %.2X %.2X SHLD $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
+        case 0xDC: printf("%.2X %.2X %.2X CC $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
         case 0xDE: printf("%-7.2X\n", *code); opbytes = 2; break;
         case 0xDF: printf("%-7.2X\n", *code); break;
         case 0xE0: printf("%-7.2X\n", *code); break;
         case 0xE1: printf("%-7.2X\n", *code); break;
-        case 0xE2: printf("%.2X %.2X %.2X SHLD $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
+        case 0xE2: printf("%.2X %.2X %.2X JPO $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
         case 0xE3: printf("%-7.2X\n", *code); break;
-        case 0xE4: printf("%.2X %.2X %.2X SHLD $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
+        case 0xE4: printf("%.2X %.2X %.2X CPO $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
         case 0xE5: printf("%-7.2X\n", *code); break;
         case 0xE6: printf("%-7.2X\n", *code); opbytes = 2; break;
         case 0xE7: printf("%-7.2X\n", *code); break;
         case 0xE8: printf("%-7.2X\n", *code); break;
         case 0xE9: printf("%-7.2X\n", *code); break;
-        case 0xEA: printf("%.2X %.2X %.2X SHLD $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
+        case 0xEA: printf("%.2X %.2X %.2X JPE $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
         case 0xEB: printf("%-7.2X\n", *code); break;
-        case 0xEC: printf("%.2X %.2X %.2X SHLD $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
+        case 0xEC: printf("%.2X %.2X %.2X CPE $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
         case 0xEE: printf("%-7.2X\n", *code); opbytes = 2; break;
         case 0xEF: printf("%-7.2X\n", *code); break;
         case 0xF0: printf("%-7.2X\n", *code); break;
         case 0xF1: printf("%-7.2X\n", *code); break;
-        case 0xF2: printf("%.2X %.2X %.2X SHLD $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
+        case 0xF2: printf("%.2X %.2X %.2X JP $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
         case 0xF3: printf("%-7.2X\n", *code); break;
-        case 0xF4: printf("%.2X %.2X %.2X SHLD $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
+        case 0xF4: printf("%.2X %.2X %.2X CP $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
         case 0xF5: printf("%-7.2X\n", *code); break;
         case 0xF6: printf("%-7.2X\n", *code); opbytes = 2; break;
         case 0xF7: printf("%-7.2X\n", *code); break;
         case 0xF8: printf("%-7.2X\n", *code); break;
         case 0xF9: printf("%-7.2X\n", *code); break;
-        case 0xFA: printf("%.2X %.2X %.2X SHLD $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
+        case 0xFA: printf("%.2X %.2X %.2X JM $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
         case 0xFB: printf("%-7.2X\n", *code); break;
-        case 0xFC: printf("%.2X %.2X %.2X SHLD $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
+        case 0xFC: printf("%.2X %.2X %.2X CM $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; // TODO
         case 0xFE: printf("%-7.2X\n", *code); opbytes = 2; break;
         case 0xFF: printf("%-7.2X\n", *code); break;
     }
