@@ -9,13 +9,11 @@ void setup_redirect(void) {
 }
 
 /**
- * TODO: Evaluate the quality of gptTests
+ * TODO: Create tests
  *
  * STEPS:
- * - Test the following 3 Byte instructions
- * 0x22 0x2a 0x32 0x3a 0xc2 0xc3 0xc4
- * 0xca 0xcc 0xcd 0xd2 0xd4 0xda 0xdc 0xe2 0xe4 0xea 0xec
- * 0xf2 0xf4 0xfa 0xfc
+ * - Test for 2 byte instructions
+ * - 26 pass ->
  */
 // 1-Byte Instructions
 Test(disassembler, opcode_NOP, .init = setup_redirect) {
@@ -25,19 +23,131 @@ Test(disassembler, opcode_NOP, .init = setup_redirect) {
     cr_assert_stdout_eq_str("0000 00       NOP\n");
 }
 
-Test(disassembler, opcode_PUSH_B, .init = setup_redirect) {
-    unsigned char code[] = { 0xC5 };
+// 2-Byte Instructions
+Test(disassembler, opcode_MVI_B, .init = setup_redirect) {
+    unsigned char code[] = { 0x06, 0x80 };
     int len = disassemble8080Op(code, 0);
-    cr_assert_eq(len, 1);
-    cr_assert_stdout_eq_str("0000 c5       PUSH   B\n");
+    cr_assert_eq(len, 2);
+    cr_assert_stdout_eq_str("0000 06 80    MVI B, #0x80\n"); // B <- byte 2
 }
 
-// 2-Byte Instructions
+Test(disassembler, opcode_MVI_C, .init = setup_redirect) {
+    unsigned char code[] = { 0x0E, 0x80 };
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 2);
+    cr_assert_stdout_eq_str("0000 0E 80    MVI C, #0x80\n"); // C <- byte 2
+}
+
+Test(disassembler, opcode_MVI_D, .init = setup_redirect) {
+    unsigned char code[] = { 0x16, 0x80 };
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 2);
+    cr_assert_stdout_eq_str("0000 16 80    MVI D, #0x80\n"); // D <- byte 2
+}
+
+Test(disassembler, opcode_MVI_E, .init = setup_redirect) {
+    unsigned char code[] = { 0x1E, 0x80 };
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 2);
+    cr_assert_stdout_eq_str("0000 1E 80    MVI E, #0x80\n"); // E <- byte 2
+}
+
+Test(disassembler, opcode_MVI_H, .init = setup_redirect) {
+    unsigned char code[] = { 0x26, 0x80 };
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 2);
+    cr_assert_stdout_eq_str("0000 26 80    MVI H, #0x80\n"); // H <- byte 2
+}
+
+Test(disassembler, opcode_MVI_L, .init = setup_redirect) {
+    unsigned char code[] = { 0x2E, 0x80 };
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 2);
+    cr_assert_stdout_eq_str("0000 2E 80    MVI L, #0x80\n"); // L <- byte 2
+}
+
+Test(disassembler, opcode_MVI_M, .init = setup_redirect) {
+    unsigned char code[] = { 0x36, 0x80 };
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 2);
+    cr_assert_stdout_eq_str("0000 36 80    MVI M, #0x80\n"); // (HL) <- byte 2
+}
+
 Test(disassembler, opcode_MVI_A, .init = setup_redirect) {
     unsigned char code[] = { 0x3E, 0x80 };
     int len = disassemble8080Op(code, 0);
     cr_assert_eq(len, 2);
-    cr_assert_stdout_eq_str("0000 3e 80    MVI    A,#0x80\n");
+    cr_assert_stdout_eq_str("0000 3E 80    MVI A, #0x80\n"); // A <- byte 2
+}
+
+Test(disassembler, opcode_ADI, .init = setup_redirect) {
+    unsigned char code[] = { 0xC6, 0x80 };
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 2);
+    cr_assert_stdout_eq_str("0000 C6 80    ADI A, #0x80\n"); // A <- A + byte
+}
+
+Test(disassembler, opcode_ACI, .init = setup_redirect) {
+    unsigned char code[] = { 0xCE, 0x80 };
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 2);
+    cr_assert_stdout_eq_str("0000 CE 80    ACI A, #0x80\n"); // A <- A + data + CY
+}
+
+Test(disassembler, opcode_OUT, .init = setup_redirect) {
+    unsigned char code[] = { 0xD3, 0x80 };
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 2);
+    cr_assert_stdout_eq_str("0000 D3 80    OUT #0x80\n"); // special
+}
+
+Test(disassembler, opcode_SUI, .init = setup_redirect) {
+    unsigned char code[] = { 0xD6, 0x80 };
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 2);
+    cr_assert_stdout_eq_str("0000 D6 80    SUI #0x80\n"); // A <- A - data
+}
+
+Test(disassembler, opcode_IN, .init = setup_redirect) {
+    unsigned char code[] = { 0xDB, 0x80 };
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 2);
+    cr_assert_stdout_eq_str("0000 DB 80    IN #0x80\n"); // special
+}
+
+Test(disassembler, opcode_SBI, .init = setup_redirect) {
+    unsigned char code[] = { 0xDE, 0x80 };
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 2);
+    cr_assert_stdout_eq_str("0000 DE 80    SBI #0x80\n"); // A <- A - data - CY
+}
+
+Test(disassembler, opcode_ANI, .init = setup_redirect) {
+    unsigned char code[] = { 0xE6, 0x80 };
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 2);
+    cr_assert_stdout_eq_str("0000 E6 80    ANI #0x80\n"); // A <- A & data
+}
+
+Test(disassembler, opcode_XRI, .init = setup_redirect) {
+    unsigned char code[] = { 0xEE, 0x80 };
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 2);
+    cr_assert_stdout_eq_str("0000 EE 80    XRI #0x80\n"); // A <- A ^ data
+}
+
+Test(disassembler, opcode_ORI, .init = setup_redirect) {
+    unsigned char code[] = { 0xF6, 0x80 };
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 2);
+    cr_assert_stdout_eq_str("0000 F6 80    ORI #0x80\n"); // A <- A | data
+}
+
+Test(disassembler, opcode_CPI, .init = setup_redirect) {
+    unsigned char code[] = { 0xFE, 0x80 };
+    int len = disassemble8080Op(code, 0);
+    cr_assert_eq(len, 2);
+    cr_assert_stdout_eq_str("0000 FE 80    CPI #0x80\n"); // A - data
 }
 
 // 3-Byte Instructions
