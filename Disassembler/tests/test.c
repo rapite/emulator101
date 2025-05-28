@@ -12,8 +12,7 @@ void setup_redirect(void) {
  * TODO: Create tests
  *
  * STEPS:
- * - Test for 2 byte instructions
- * - 26 pass ->
+ * - Consider edge cases including unrecognized opcodes
  */
 // 1-Byte Instructions
 Test(disassembler, opcode_NOP, .init = setup_redirect) {
