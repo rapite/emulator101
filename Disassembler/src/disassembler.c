@@ -3,35 +3,7 @@
 #include <string.h>
 
 #include "../include/disassembler.h"
-
-/**
- * @brief Initializes Disassembler
- */
-// TODO: Implement main loop in this function
-int init8080Op(const char* path) {
-    FILE* fp = fopen(path, "r");
-    if (!fp) {
-        printf("Failed to open %s\n", path);
-        exit(1);
-    }
-    //Get the file size and read it into a memory buffer    
-    fseek(fp, 0L, SEEK_END);
-    int fsize = ftell(fp);
-    fseek(fp, 0L, SEEK_SET);
-
-    unsigned char *buffer=malloc(fsize);
-
-    fread(buffer, fsize, 1, fp);
-    fclose(fp);
-
-    int pc = 0;
-
-    while (pc < fsize) {    
-        pc += disassemble8080Op(buffer, pc);
-    }
-    return 0;
-}
-/**
+ /**
  * TODO: Implement full code disassembler
  * Later, eventuall change the behavior of the disassembler for address instructions (0x2a LHLD)
  * to abide by intended 'uint16_t addr' values
