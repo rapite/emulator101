@@ -5,10 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.3] - 5/30/2025
+
+### Added
+- Working on general debugger
+
 ## [0.1.2] - 5/28/2025
 
 ### Added
 - disassembler implementation for opcodes of size 2 (tests included)
+- Complete implementation of size 1 opcodes
 
 ## [0.1.2] - 5/22/2025
 
