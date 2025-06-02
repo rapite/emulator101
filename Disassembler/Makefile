@@ -8,6 +8,12 @@ main: main.o disassembler.o
 test: test.o disassembler.o
 	$(CC) -o test test.o disassembler.o -lcriterion
 
+char: char.o
+	$(CC) -o char char.o
+
+char.o:
+	$(CC) $(CFLAGS) -c src/char.c
+
 main.o: src/main.c
 	$(CC) $(CFLAGS) -c src/main.c
 
