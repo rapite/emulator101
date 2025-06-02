@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
-TARGETS = test main
+TARGETS = test main char
 
 main: main.o disassembler.o
 	$(CC) -o main disassembler.o main.o
