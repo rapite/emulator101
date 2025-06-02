@@ -4,7 +4,11 @@
 #include "../include/disassembler.h"
 
 int main(int argc, char*argv[]) {
-    (void)argc;
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s hexdump.txt\n", argv[0]);
+        return 1;
+    }
+
     FILE *f = fopen(argv[1], "rb");
     if (f == NULL) {
         printf("error: Couldn't open %s\n", argv[1]);
@@ -12,39 +16,38 @@ int main(int argc, char*argv[]) {
     }
 
     //Get the file size and read it into a memory buffer    
-    fseek(f, 0L, SEEK_END);
-    int fsize = ftell(f);
+    fseek(f, 0L, SEEK_END);    
+    int fsize = ftell(f);    
+    fseek(f, 0L, SEEK_SET);
 
     unsigned char *buffer=malloc(fsize);
     
+    char line[256]; // Buffer for each line
+
+    // Read lines from file
     int i = 0;
-    long pos = 0;
-    unsigned char *byte1 = malloc(2);
-    unsigned char *byte2 = malloc(2);
-    while (i < 2) {
-        fseek(f, pos + 8, SEEK_SET);
-        int j; 
-        for (j = 0; j < 8; j++) {
-            fread(byte2, 1, 2, f); // two spaces in f
-            fread(byte1, 1, 2, f); // two spaces in f
+    while(fgets(line, sizeof(line), f)) {
+        char *counter = line + 8;
+        char captured[5];
+        
+        for (int j = 0; j < 8; j++) {
+            strncpy(captured, counter, 4);
+            captured[4] = '\0';
 
-            memcpy(buffer + pos, byte1, 2); pos+=2;
-            memcpy(buffer + pos, " ", 1); pos+=1;
-            memcpy(buffer + pos, byte2, 2); pos+=2;
-            memcpy(buffer + pos, " ", 1); pos+=1;
-            fread(byte1, 1, 1, f); // one space in f
-        } 
-        memcpy(buffer + pos, byte1, 1);
-        i++;
+            unsigned int val = (unsigned int)strtoul(captured, NULL, 16);
+            buffer[i] = val & 0xFF;
+            buffer[i+1] = (val >> 8) & 0xFF;
+            i += 2;
+            counter += 5;
+        }
     }
-
-    printf("%s\n", buffer);
     fclose(f);
     
     int pc = 0;
-    while (pc < 100) {    
+    while (pc < i) {    
         pc += disassemble8080Op(buffer, pc);
     }    
 
+    free(buffer);
     return 0;
 }
