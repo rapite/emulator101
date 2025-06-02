@@ -11,15 +11,31 @@
 
 int main() {
     char line1[] = "0000000 0000 c300 18d4 0000 c5f5 e5d5 8cc3 0000\n";
-    char line2[] = "0000010 c5f5 e5d5 803e 7232 2120 20c0 cd35 17cd\n";
-    char line3[] = "0000020 01db da0f 0067 ea3a a720 42ca 3a00 20eb\n";
 
     // convert these strings into byte code
     // Skipping the first eight characters
-    // Read them into
+    char *counter = line1 + 8;
+    char captured[5]; 
+    char captured2[5]; 
 
-    printf("%ld\n", sizeof(line1));
-    printf("%c\n", line1[48]);
+    strncpy(captured, counter, 4);
+    counter += 5;
+    strncpy(captured2, counter, 4);
+    captured[4] = '\0';
+    captured2[4] = '\0';
 
+    unsigned int val1 = (unsigned int)strtoul(captured, NULL, 16);
+    unsigned int val2 = (unsigned int)strtoul(captured2, NULL, 16);
+
+    unsigned char buffer[5];
+    buffer[0] = val1 & 0xFF;
+    buffer[1] = (val1 >> 8) & 0xFF;
+    buffer[2] = val2 & 0xFF;
+    buffer[3] = (val2 >> 8) & 0xFF;
+    buffer[4] = '\0';
+
+    printf("0x%02X 0x%02X\n", buffer[0], buffer[1]);
+    printf("0x%02X 0x%02X\n", buffer[2], buffer[3]);
+    
     return 0;
 }
