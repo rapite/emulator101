@@ -1,6 +1,9 @@
 # executables
 *test
 *main
+*char
+*char2
+*hexout
 
 # Buildables
 *.o
