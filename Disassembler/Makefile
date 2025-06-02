@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
-TARGETS = test main char
+TARGETS = test main char char2 hexout
 
 main: main.o disassembler.o
 	$(CC) -o main disassembler.o main.o
@@ -11,7 +11,7 @@ test: test.o disassembler.o
 char: char.o
 	$(CC) -o char char.o
 
-char.o:
+char.o: src/char.c
 	$(CC) $(CFLAGS) -c src/char.c
 
 main.o: src/main.c
