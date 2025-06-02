@@ -10,14 +10,14 @@ This program disaseembles a stream of hex numbers into assembly source code and 
 ## Usage
 
 ## Goals
-The major goals of this project is to learn the following by order of importance
+The major goals of this project include:
 - How to maintain a C project on github
 - How to maintain a proper readme and changelog
-- How to use cppreference as the primary resource
 - How to write unit tests with Criterion
+- How to write good documents with Doxygen
 - How to build good makefiles
+- How to use gcc, Make
 - How to write a disassembler
-- How to use gcc, Make, and CMake
 - How to use good C (or even general) styling formats
 
 ## Build Instructions
