@@ -16,6 +16,17 @@ An early-stage Intel 8080 emulator. Includes support for:
 - Stack and instruction pointer logic
 - Designed to grow into a full CPU core
 
+## Goals
+The major goals of this project include:
+- How to maintain a C project on github
+- How to maintain a proper readme and changelog
+- How to write unit tests with Criterion
+- How to write good documents with Doxygen
+- How to build good makefiles
+- How to use gcc, Make
+- How to write a disassembler
+- How to use good C (or even general) styling formats
+
 ## Building the Project
 
 ```bash
