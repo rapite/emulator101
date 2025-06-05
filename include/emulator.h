@@ -28,8 +28,21 @@ typedef struct State8080
     uint8_t int_enable;
 } State8080;
 
+/**
+ * @brief 
+ *
+ * @param[in] state
+ *
+ */
 void UnimplementedInstruction(State8080* state);
 
+/**
+ * @brief 
+ *
+ * @param[in] state 
+ *
+ * @return 
+ */
 int Emulate8080Op(State8080* state);
 
 #endif
