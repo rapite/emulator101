@@ -26,19 +26,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.3] - 5/30/2025
 
 ### Added
-- Working on general debugger
+- General debugger for disassembler/main.c
 
 ## [0.1.2] - 5/28/2025
 
 ### Added
-- disassembler implementation for opcodes of size 2 (tests included)
+- Disassembler implementation for opcodes of size 2 (tests included)
 - Complete implementation of size 1 opcodes
 
 ## [0.1.2] - 5/22/2025
 
 ### Added
-- disassembler opcode implementations for opcodes of size 3
-- disassembler opcode tests of size 3
+- Disassembler opcode implementations for opcodes of size 3
+- Disassembler opcode tests of size 3
 
 ## [0.1.1] - 5/21/2025
 
@@ -47,13 +47,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Opcode test skeletons and individual opcode tests
 
 ### Removed
-- invalid 8080opcodes
+- Invalid 8080opcodes
     - 0x08, 0x10, 0x18, 0x20, 0x28, 0x30, 0x38, 0xcb, 0xd9, 0xdd, 0xed, 0xfd
 
 ## [0.1.1] - 5/20/2025
 
 ### Added
-- emulator101 starter code to disassembler.c
+- Emulator101 starter code to disassembler.c
 - Test case skeletons using Criterion
 
 ### Changed
