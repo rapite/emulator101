@@ -8,6 +8,9 @@ This program disassembles a stream of hex numbers into assembly source code and 
 - Less arbitrary placehold feature
 
 ## Usage
+chartohex.c converts string representations of hexadecimal words into bytecode using strtoul
+chartohex2.c converts file representations of hexadecimal words into bytecode using strtoul.
+disassembler.c provides functionality to return the byte size of opcode instructions.
 
 ## Goals
 The major goals of this project include:
