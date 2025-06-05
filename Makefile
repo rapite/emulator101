@@ -11,17 +11,17 @@ test: test.o disassembler.o
 char: char.o
 	$(CC) -o char char.o
 
-char.o: src/char.c
-	$(CC) $(CFLAGS) -c src/char.c
+char.o: src/disassembler/char.c
+	$(CC) $(CFLAGS) -c src/disassembler/char.c
 
-main.o: src/main.c
-	$(CC) $(CFLAGS) -c src/main.c
+main.o: src/disassembler/main.c
+	$(CC) $(CFLAGS) -c src/disassembler/main.c
 
-test.o: tests/test.c
-	$(CC) $(CFLAGS) -c tests/test.c
+test.o: tests/disassembler/test.c
+	$(CC) $(CFLAGS) -c tests/disassembler/test.c
 
-disassembler.o: src/disassembler.c
-	$(CC) $(CFLAGS) -c src/disassembler.c
+disassembler.o: src/disassembler/disassembler.c
+	$(CC) $(CFLAGS) -c src/disassembler/disassembler.c
 
 clean:
 	rm *.o $(TARGETS)
