@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Project naming schema and overall hierarchy
+- Updated various files to reflect changes (Makefile, src files, headers, etc.)
 
 ## [0.1.4] - 6/2/2025
 
