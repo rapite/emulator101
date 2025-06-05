@@ -30,11 +30,11 @@ int main(int argc, char*argv[]) {
         char *counter = line + 8;
         char captured[5];
         
-        for (int j = 0; j < 8; j++) {
+        for (int j = 0; j < 8; j++) { // reads all byte codes from line
             strncpy(captured, counter, 4);
             captured[4] = '\0';
 
-            unsigned int val = (unsigned int)strtoul(captured, NULL, 16);
+            unsigned int val = (unsigned int)strtoul(captured, NULL, 16); // type conversion
             buffer[i] = val & 0xFF;
             buffer[i+1] = (val >> 8) & 0xFF;
             i += 2;
