@@ -10,7 +10,6 @@
 *.o
 
 #files
-Disassembler/src/main.c
 
 # Folders
 .vscode/

@@ -31,4 +31,5 @@ typedef struct State8080
 void UnimplementedInstruction(State8080* state);
 
 int Emulate8080Op(State8080* state);
+
 #endif
