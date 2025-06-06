@@ -30,16 +30,26 @@ typedef struct State8080
 
 /**
  * @brief 
+ * 
+ * Prints to stream no valid implementation of state->opcode
  *
- * @param[in] state
+ * @param[in] state is a valid struct of State8080
  *
  */
 void UnimplementedInstruction(State8080* state);
 
 /**
  * @brief 
- *
- * @param[in] state 
+ * 
+ * Updates the set of registers, program counter (pc), stack pointer (sp),
+ * condition codes (flags), and the memory array provided a valid
+ * pointer to a state container.
+ * 
+ * @param[in] state is a valid State8080 pointer.
+ * 
+ * State includes the register set, pc, sp, flags, and memory array. 
+ * The memory array is a collection of valid opcode, detailing the 
+ * instruction set. 
  *
  * @return 
  */
