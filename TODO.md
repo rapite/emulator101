@@ -1,20 +1,25 @@
 # TODO
 
+## Emulator
+- [ ] Tests
+    - [ ] Write 3 size opcode tests
+    - [ ] 2 size opcode tests
+    
+- [ ] Implement Emulator
+    - [ ] Implement arithmetic group
+    - [ ] Implement Branch group
+    - [ ] Implement Logical group
+    - [ ] Implement Stack group
+
 ## Disassembler
-- [ ] Brush up documentation
+    - [ ] Brush up documentation
     - [ ] disassembler.h
     - [ ] disassembler.c
     - [ ] chartothex.c
     - [ ] chartohex2.c
     - [ ] README.md
 
-## Emulator
-- [ ] Implement Emulator
-    - [ ] Implement arithmetic group
-    - [ ] Implement Branch group
-    - [ ] Implement Logical group
-    - [ ] Implement Stack group
-- [ ] Document
+- Documentation
     - [ ] emulator.c
     - [ ] emulator.h
     - [ ] README.md
