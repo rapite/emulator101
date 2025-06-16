@@ -243,6 +243,8 @@ int disassemble8080Op(unsigned char *codebuffer, int pc) {
         case 0xEF: printf("%-8.2X RST 5\n", *code); break;
         case 0xF0: printf("%-8.2X RP\n", *code); break;
         case 0xF1: printf("%-8.2X POP PSW\n", *code); break;
+        case 0xF2: printf("%.2X %.2X %.2X JP $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break;
+        case 0xF3: printf("%.2X %.2X %.2X DI $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break;
         case 0xF4: printf("%.2X %.2X %.2X CP $%.2X%.2X\n", code[0], code[1], code[2], code[2], code[1]); opbytes = 3; break; 
         case 0xF5: printf("%-8.2X PUSH PSW\n", *code); break;
         case 0xF6: printf("%.2X %-5.2X ORI #0x%.2X\n", code[0], code[1], code[1]); opbytes = 2; break;
