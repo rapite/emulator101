@@ -1,7 +1,10 @@
+#include <stdlib.h>
+#include <stdio.h>
 #include "../../include/emulator.h"
 
 void UnimplementedInstruction(State8080* state) {
-     //pc will have advanced one, so undo that    
+     //pc will have advanced one, so undo that
+    state->pc-=1;
     printf ("Error: Unimplemented instruction\n");    
     exit(1);    
 }
@@ -18,7 +21,7 @@ int Emulate8080Op(State8080* state) {
     switch(*opcode)    
     {
         case 0x00: break; // NOP
-        case 0x01: UnimplementedInstruction(state); // LXI B, word
+        case 0x01: // LXI B, word
             state->c = opcode[1];
             state->b = opcode[2];
             state->pc += 2;
@@ -278,5 +281,6 @@ int Emulate8080Op(State8080* state) {
         case 0xFE: UnimplementedInstruction(state); break;
         case 0xFF: UnimplementedInstruction(state); break;
     }    
-    state->pc+=1;  //for the opcode    
+    state->pc+=1;  //for the opcode
+    return 1;
 }
