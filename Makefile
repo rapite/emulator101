@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
-TARGETS = test_emulator test_disassembler disassembler chartohex chartohex2 hexout structs
+TARGETS = test_emulator test_disassembler disassembler chartohex chartohex2 hexout structs structs2
 
 disassembler: main_disassembler.o disassembler.o
 	$(CC) -o main disassembler.o main_disassembler.o
@@ -20,6 +20,10 @@ structs: src/emulator/structs.c emulator.o
 	$(CC) $(CFLAGS) -c src/emulator/structs.c 
 	$(CC) -o structs structs.o emulator.o
 	
+structs2: src/emulator/structs2.c emulator.o
+	$(CC) $(CFLAGS) -c src/emulator/structs2.c
+	$(CC) -o structs2 structs2.o emulator.o
+
 main_disassembler.o: src/disassembler/main_disassembler.c
 	$(CC) $(CFLAGS) -c src/disassembler/main_disassembler.c
 
