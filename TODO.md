@@ -11,7 +11,10 @@
     - [ ] Implement Logical group
     - [ ] Implement Stack group
 
+- [ ] Calloc + Malloc
+
 ## Disassembler
+    - [ ] REVIEW LATER (missing implementations???)
     - [ ] Brush up documentation
     - [ ] disassembler.h
     - [ ] disassembler.c
