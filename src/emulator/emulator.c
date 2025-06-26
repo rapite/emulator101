@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <inttypes.h>
 #include "../../include/emulator.h"
 
 void UnimplementedInstruction(State8080* state) {
@@ -7,6 +8,27 @@ void UnimplementedInstruction(State8080* state) {
     state->pc-=1;
     printf ("Error: Unimplemented instruction\n");    
     exit(1);    
+}
+
+void printStateData(State8080* s) {
+    // print struct members
+    printf("a: %" PRIu8 "\n", s->a);
+    printf("b: %" PRIu8 "\n", s->b);
+    printf("c: %" PRIu8 "\n", s->c);
+    printf("d: %" PRIu8 "\n", s->d);
+    printf("e: %" PRIu8 "\n", s->e);
+    printf("h: %" PRIu8 "\n", s->h);
+    printf("l: %" PRIu8 "\n", s->l);
+    printf("sp: %" PRIu16 "\n", s->sp);
+    printf("pc: %" PRIu16 "\n\n", s->pc);
+
+    // observe members of cc
+    printf("s.cc->z: %" PRIu8 "\n", s->cc.z);
+    printf("s.cc->s: %" PRIu8 "\n", s->cc.s);
+    printf("s.cc->p: %" PRIu8 "\n", s->cc.p);
+    printf("s.cc->cy: %" PRIu8 "\n", s->cc.cy);
+    printf("s.cc->ac: %" PRIu8 "\n", s->cc.ac);
+    printf("s.cc->pad: %" PRIu8 "\n", s->cc.pad);
 }
 
 /**
@@ -18,13 +40,15 @@ void UnimplementedInstruction(State8080* state) {
  */
 int Emulate8080Op(State8080* state) {    
     unsigned char *opcode = &state->memory[state->pc];    
+    int opbytes = 1;
     switch(*opcode)    
     {
-        case 0x00: break; // NOP
-        case 0x01: // LXI B, word
+        case 0x00: break; // NOP 
+        case 0x01: // LXI B, word 	B <- byte 3, C <- byte 2
             state->c = opcode[1];
             state->b = opcode[2];
             state->pc += 2;
+            opbytes = 3;
             break;
         case 0x02: UnimplementedInstruction(state); break;
         case 0x03: UnimplementedInstruction(state); break;
@@ -282,5 +306,5 @@ int Emulate8080Op(State8080* state) {
         case 0xFF: UnimplementedInstruction(state); break;
     }    
     state->pc+=1;  //for the opcode
-    return 1;
+    return opbytes;
 }
