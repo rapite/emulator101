@@ -333,7 +333,7 @@ Test(disassembler, opcode_CM, .init = setup_redirect) {
     cr_assert_stdout_eq_str("0000 FC D4 18 CM $18D4\n"); // if M, CALL adr
 }
 
-// Error Case: Incomplete Instruction
+// Error Case: Incomplete Instruction (UNIMPLEMENTED)
 Test(disassembler, incomplete_JMP, .init = setup_redirect) {
     unsigned char code[] = { 0xC3, 0x12 }; // Missing third byte
     int len = disassemble8080Op(code, 0);
@@ -341,7 +341,7 @@ Test(disassembler, incomplete_JMP, .init = setup_redirect) {
     // Optional: check output if you emit a placeholder/error
 }
 
-// Unknown Opcode
+// Unknown Opcode (UNIMPLEMENTED)
 Test(disassembler, unknown_opcode, .init = setup_redirect) {
     unsigned char code[] = { 0xdd }; // Undefined in 8080
     int len = disassemble8080Op(code, 0);
