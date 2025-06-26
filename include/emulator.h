@@ -12,8 +12,7 @@ typedef struct ConditionCodes {
     uint8_t pad:3;
 } ConditionCodes;
 
-typedef struct State8080
-{
+typedef struct State8080 {
     uint8_t a;
     uint8_t b;
     uint8_t c;
@@ -54,5 +53,7 @@ void UnimplementedInstruction(State8080* state);
  * @return 
  */
 int Emulate8080Op(State8080* state);
+
+void printStateData(State8080* s);
 
 #endif
