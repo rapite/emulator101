@@ -37,6 +37,21 @@ void printStateData(State8080* s) {
  * - 0x3a 0xc2 0xc3 0xc4 0xca 0xcc 0xcd
  * - 0xd2 0xd4 0xda 0xdc 0xe2 0xe4 0xea
  * - 0xec 0xf2 0xf4 0xfa 0xfc
+ * 
+ * TODO: Implement Arithmetic group
+ * - Unless indicated otherwise, all instructions affect zero, sign, parity, carry and auxiliary Carry flags
+ *
+ * TODO: Implement Branch group
+ * TODO: Implement Logical group
+ * TODO: Implement IO and Special group
+ * TODO: Implement Stack group
+ * 
+ * - In the carry variants (ADC, ACI, SBB, SUI) you use the carry bit in the calculation as indicated in the data book.
+ * - INX and DCX effect register pairs, these instructions do not effect the flags.
+ * - DAD is another register pair instruction, it only effects the carry flag
+ * - INR and DCR do not effect the carry flag
+ * 
+ * TODO: 50k list of instructions
  */
 int Emulate8080Op(State8080* state) {    
     unsigned char *opcode = &state->memory[state->pc];    
@@ -44,16 +59,24 @@ int Emulate8080Op(State8080* state) {
     switch(*opcode)    
     {
         case 0x00: break; // NOP 
-        case 0x01: // LXI B, word 	B <- byte 3, C <- byte 2
+        case 0x01: {// LXI B, word 	B <- byte 3, C <- byte 2
             state->c = opcode[1];
             state->b = opcode[2];
             state->pc += 2;
             opbytes = 3;
             break;
+        }
         case 0x02: UnimplementedInstruction(state); break;
         case 0x03: UnimplementedInstruction(state); break;
         case 0x04: UnimplementedInstruction(state); break;
-        case 0x05: UnimplementedInstruction(state); break;
+        case 0x05: { // DCR B
+            uint16_t answer = (uint16_t) state->b - 1;
+            state->cc.z = (answer == 0);
+            state->cc.s = ((answer & 0x80) != 0);
+            state->cc.p = Parity(answer & 0xFF);
+            state->b = answer & 0xff;
+            break;
+        } 
         case 0x06: UnimplementedInstruction(state); break;
         case 0x07: UnimplementedInstruction(state); break;
         case 0x08: UnimplementedInstruction(state); break;
@@ -61,7 +84,14 @@ int Emulate8080Op(State8080* state) {
         case 0x0A: UnimplementedInstruction(state); break;
         case 0x0B: UnimplementedInstruction(state); break;
         case 0x0C: UnimplementedInstruction(state); break;
-        case 0x0D: UnimplementedInstruction(state); break;
+        case 0x0D: { // DCR C
+            uint16_t answer = (uint16_t) state->c - 1;
+            state->cc.z = (answer == 0);
+            state->cc.s = ((answer & 0x80) != 0);
+            state->cc.p = Parity(answer & 0xFF);
+            state->c = answer & 0xff;
+            break;
+        } 
         case 0x0E: UnimplementedInstruction(state); break;
         case 0x0F: UnimplementedInstruction(state); break;
         case 0x10: UnimplementedInstruction(state); break;
@@ -69,7 +99,14 @@ int Emulate8080Op(State8080* state) {
         case 0x12: UnimplementedInstruction(state); break;
         case 0x13: UnimplementedInstruction(state); break;
         case 0x14: UnimplementedInstruction(state); break;
-        case 0x15: UnimplementedInstruction(state); break;
+        case 0x15: { // DCR D
+            uint16_t answer = (uint16_t) state->d - 1;
+            state->cc.z = (answer == 0);
+            state->cc.s = ((answer & 0x80) != 0);
+            state->cc.p = Parity(answer & 0xFF);
+            state->d = answer & 0xff;
+            break;
+        }
         case 0x16: UnimplementedInstruction(state); break;
         case 0x17: UnimplementedInstruction(state); break;
         case 0x18: UnimplementedInstruction(state); break;
@@ -77,7 +114,14 @@ int Emulate8080Op(State8080* state) {
         case 0x1A: UnimplementedInstruction(state); break;
         case 0x1B: UnimplementedInstruction(state); break;
         case 0x1C: UnimplementedInstruction(state); break;
-        case 0x1D: UnimplementedInstruction(state); break;
+        case 0x1D: { // DCR E
+            uint16_t answer = (uint16_t) state->e - 1;
+            state->cc.z = (answer == 0);
+            state->cc.s = ((answer & 0x80) != 0);
+            state->cc.p = Parity(answer & 0xFF);
+            state->e = answer & 0xff;
+            break;
+        }
         case 0x1E: UnimplementedInstruction(state); break;
         case 0x1F: UnimplementedInstruction(state); break;
         case 0x20: UnimplementedInstruction(state); break;
@@ -85,7 +129,14 @@ int Emulate8080Op(State8080* state) {
         case 0x22: UnimplementedInstruction(state); break;
         case 0x23: UnimplementedInstruction(state); break;
         case 0x24: UnimplementedInstruction(state); break;
-        case 0x25: UnimplementedInstruction(state); break;
+        case 0x25: { // DCR h
+            uint16_t answer = (uint16_t) state->h - 1;
+            state->cc.z = (answer == 0);
+            state->cc.s = ((answer & 0x80) != 0);
+            state->cc.p = Parity(answer & 0xFF);
+            state->h = answer & 0xff;
+            break;
+        } 
         case 0x26: UnimplementedInstruction(state); break;
         case 0x27: UnimplementedInstruction(state); break;
         case 0x28: UnimplementedInstruction(state); break;
@@ -93,7 +144,14 @@ int Emulate8080Op(State8080* state) {
         case 0x2A: UnimplementedInstruction(state); break;
         case 0x2B: UnimplementedInstruction(state); break;
         case 0x2C: UnimplementedInstruction(state); break;
-        case 0x2D: UnimplementedInstruction(state); break;
+        case 0x2D: { // DCR L
+            uint16_t answer = (uint16_t) state->l - 1;
+            state->cc.z = (answer == 0);
+            state->cc.s = ((answer & 0x80) != 0);
+            state->cc.p = Parity(answer & 0xFF);
+            state->l = answer & 0xff;
+            break;
+        }
         case 0x2E: UnimplementedInstruction(state); break;
         case 0x2F: UnimplementedInstruction(state); break;
         case 0x30: UnimplementedInstruction(state); break;
@@ -101,7 +159,16 @@ int Emulate8080Op(State8080* state) {
         case 0x32: UnimplementedInstruction(state); break;
         case 0x33: UnimplementedInstruction(state); break;
         case 0x34: UnimplementedInstruction(state); break;
-        case 0x35: UnimplementedInstruction(state); break;
+        case 0x35: { // DCR M
+            uint16_t offset = (state->h << 8) | state->l;
+            uint8_t answer = state->memory[offset] - 1;
+
+            state->cc.z = ((answer & 0xff) == 0);
+            state->cc.s = ((answer & 0x80) != 0);
+            state->cc.p = Parity(answer & 0xFF);
+            state->memory[offset] = answer;
+            break;
+        }
         case 0x36: UnimplementedInstruction(state); break;
         case 0x37: UnimplementedInstruction(state); break;
         case 0x38: UnimplementedInstruction(state); break;
@@ -109,7 +176,14 @@ int Emulate8080Op(State8080* state) {
         case 0x3A: UnimplementedInstruction(state); break;
         case 0x3B: UnimplementedInstruction(state); break;
         case 0x3C: UnimplementedInstruction(state); break;
-        case 0x3D: UnimplementedInstruction(state); break;
+        case 0x3D: { // DCR A
+            uint16_t answer = (uint16_t) state->a - 1;
+            state->cc.z = (answer == 0);
+            state->cc.s = ((answer & 0x80) != 0);
+            state->cc.p = Parity(answer & 0xFF);
+            state->a = answer & 0xff;
+            break;
+        } 
         case 0x3E: UnimplementedInstruction(state); break;
         case 0x3F: UnimplementedInstruction(state); break;
         case 0x40: UnimplementedInstruction(state); break;
@@ -176,13 +250,59 @@ int Emulate8080Op(State8080* state) {
         case 0x7D: UnimplementedInstruction(state); break;
         case 0x7E: UnimplementedInstruction(state); break;
         case 0x7F: UnimplementedInstruction(state); break;
-        case 0x80: UnimplementedInstruction(state); break;
-        case 0x81: UnimplementedInstruction(state); break;
+        case 0x80: // ADD B
+        {
+            // do the math with higher precision so we can capture the    
+            // carry out    
+            uint16_t answer = (uint16_t) state->a + (uint16_t) state->b;
+
+            // Zero flag: if the result is zero,    
+            // set the flag to zero    
+            // else clear the flag    
+            if ((answer & 0xff) == 0)
+                state->cc.z = 1;
+            else    
+                state->cc.z = 0;
+            // Sign flag: if bit 7 is set,
+            // set the sign flag
+            // else clear the sign flag
+            if (answer & 0x80)
+                state->cc.s = 1;
+            else    
+                state->cc.s = 0;
+
+            // Carry flag    
+            if (answer > 0xff)    
+                state->cc.cy = 1;
+            else    
+                state->cc.cy = 0;
+            // Parity is handled by a subroutine    
+            state->cc.p = Parity( answer & 0xff);
+            state->a = answer & 0xff;
+            break;
+        } 
+        case 0x81: { // ADD C
+            uint16_t answer = (uint16_t) state->a + (uint16_t) state->c;
+            state->cc.z = ((answer & 0xff) == 0);
+            state->cc.s = ((answer & 0x80) != 0);
+            state->cc.cy = (answer > 0xff);
+            state->cc.p = Parity(answer&0xff);
+            state->a = answer & 0xff;
+            break;
+        }   
         case 0x82: UnimplementedInstruction(state); break;
         case 0x83: UnimplementedInstruction(state); break;
         case 0x84: UnimplementedInstruction(state); break;
         case 0x85: UnimplementedInstruction(state); break;
-        case 0x86: UnimplementedInstruction(state); break;
+        case 0x86: { // ADD M
+            uint16_t offset = (state->h<<8) | (state->l);
+            uint16_t answer = (uint16_t) state->a + state->memory[offset];
+            state->cc.z = ((answer & 0xff) == 0);
+            state->cc.s = ((answer & 0x80) != 0);
+            state->cc.cy = (answer > 0xff);
+            state->cc.p = Parity(answer&0xff);
+            state->a = answer & 0xff;
+        }
         case 0x87: UnimplementedInstruction(state); break;
         case 0x88: UnimplementedInstruction(state); break;
         case 0x89: UnimplementedInstruction(state); break;
@@ -246,7 +366,17 @@ int Emulate8080Op(State8080* state) {
         case 0xC3: UnimplementedInstruction(state); break;
         case 0xC4: UnimplementedInstruction(state); break;
         case 0xC5: UnimplementedInstruction(state); break;
-        case 0xC6: UnimplementedInstruction(state); break;
+        case 0xC6: {  //ADI byte
+            uint16_t answer = (uint16_t) state->a + (uint16_t) opcode[1];
+            state->cc.z = ((answer & 0xff) == 0);
+            state->cc.s = ((answer & 0x80) != 0);
+            state->cc.cy = (answer > 0xff);
+            state->cc.p = Parity(answer&0xff);
+            state->a = answer & 0xff;
+
+            state->pc += 1;
+            break;
+        }
         case 0xC7: UnimplementedInstruction(state); break;
         case 0xC8: UnimplementedInstruction(state); break;
         case 0xC9: UnimplementedInstruction(state); break;
