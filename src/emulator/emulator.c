@@ -54,15 +54,14 @@ void printStateData(State8080* s) {
  * TODO: 50k list of instructions
  */
 int Emulate8080Op(State8080* state) {    
-    unsigned char *opcode = &state->memory[state->pc];    
+    unsigned char *opcode = &state->memory[state->pc];
     int opbytes = 1;
-    switch(*opcode)    
+    switch(*opcode)
     {
         case 0x00: break; // NOP 
-        case 0x01: {// LXI B, word 	B <- byte 3, C <- byte 2
+        case 0x01: { // LXI B, word 	B <- byte 3, C <- byte 2
             state->c = opcode[1];
             state->b = opcode[2];
-            state->pc += 2;
             opbytes = 3;
             break;
         }
@@ -77,10 +76,16 @@ int Emulate8080Op(State8080* state) {
             state->b = answer & 0xff;
             break;
         } 
-        case 0x06: UnimplementedInstruction(state); break;
+        case 0x06: { // MVI B, D8
+            state->b = opcode[1];
+            opbytes = 2;
+            break;
+        } 
         case 0x07: UnimplementedInstruction(state); break;
         case 0x08: UnimplementedInstruction(state); break;
-        case 0x09: UnimplementedInstruction(state); break;
+        case 0x09: { // DAD B
+
+        } 
         case 0x0A: UnimplementedInstruction(state); break;
         case 0x0B: UnimplementedInstruction(state); break;
         case 0x0C: UnimplementedInstruction(state); break;
@@ -92,7 +97,11 @@ int Emulate8080Op(State8080* state) {
             state->c = answer & 0xff;
             break;
         } 
-        case 0x0E: UnimplementedInstruction(state); break;
+        case 0x0E: { // MVI C, D8
+            state->c = opcode[1];
+            opbytes = 2;
+            break;
+        }
         case 0x0F: UnimplementedInstruction(state); break;
         case 0x10: UnimplementedInstruction(state); break;
         case 0x11: UnimplementedInstruction(state); break;
@@ -107,7 +116,11 @@ int Emulate8080Op(State8080* state) {
             state->d = answer & 0xff;
             break;
         }
-        case 0x16: UnimplementedInstruction(state); break;
+        case 0x16: { // MVI D, D8
+            state->d = opcode[1];
+            opbytes = 2;
+            break;
+        }
         case 0x17: UnimplementedInstruction(state); break;
         case 0x18: UnimplementedInstruction(state); break;
         case 0x19: UnimplementedInstruction(state); break;
@@ -122,7 +135,11 @@ int Emulate8080Op(State8080* state) {
             state->e = answer & 0xff;
             break;
         }
-        case 0x1E: UnimplementedInstruction(state); break;
+        case 0x1E: { // MVI E, D8
+            state->e = opcode[1];
+            opbytes = 2;
+            break;
+        } 
         case 0x1F: UnimplementedInstruction(state); break;
         case 0x20: UnimplementedInstruction(state); break;
         case 0x21: UnimplementedInstruction(state); break;
@@ -137,7 +154,11 @@ int Emulate8080Op(State8080* state) {
             state->h = answer & 0xff;
             break;
         } 
-        case 0x26: UnimplementedInstruction(state); break;
+        case 0x26: { // MVI H, D8
+            state->h = opcode[1];
+            opbytes = 2;
+            break;
+        }
         case 0x27: UnimplementedInstruction(state); break;
         case 0x28: UnimplementedInstruction(state); break;
         case 0x29: UnimplementedInstruction(state); break;
@@ -152,7 +173,11 @@ int Emulate8080Op(State8080* state) {
             state->l = answer & 0xff;
             break;
         }
-        case 0x2E: UnimplementedInstruction(state); break;
+        case 0x2E: { // MVI L, D8
+            state->l = opcode[1];
+            opbytes = 2;
+            break;
+        }
         case 0x2F: UnimplementedInstruction(state); break;
         case 0x30: UnimplementedInstruction(state); break;
         case 0x31: UnimplementedInstruction(state); break;
@@ -169,7 +194,12 @@ int Emulate8080Op(State8080* state) {
             state->memory[offset] = answer;
             break;
         }
-        case 0x36: UnimplementedInstruction(state); break;
+        case 0x36: { // MVI M, D8
+            uint16_t offset = (state->h << 8) | state->l;
+            state->memory[offset] = opcode[1];
+            opbytes = 2;
+            break;
+        }
         case 0x37: UnimplementedInstruction(state); break;
         case 0x38: UnimplementedInstruction(state); break;
         case 0x39: UnimplementedInstruction(state); break;
@@ -184,7 +214,11 @@ int Emulate8080Op(State8080* state) {
             state->a = answer & 0xff;
             break;
         } 
-        case 0x3E: UnimplementedInstruction(state); break;
+        case 0x3E: { // MVI A, D8
+            state->a = opcode[1];
+            opbytes = 2;
+            break;
+        }
         case 0x3F: UnimplementedInstruction(state); break;
         case 0x40: UnimplementedInstruction(state); break;
         case 0x41: UnimplementedInstruction(state); break;
@@ -374,7 +408,7 @@ int Emulate8080Op(State8080* state) {
             state->cc.p = Parity(answer&0xff);
             state->a = answer & 0xff;
 
-            state->pc += 1;
+            opbytes = 2;
             break;
         }
         case 0xC7: UnimplementedInstruction(state); break;
@@ -435,6 +469,6 @@ int Emulate8080Op(State8080* state) {
         case 0xFE: UnimplementedInstruction(state); break;
         case 0xFF: UnimplementedInstruction(state); break;
     }    
-    state->pc+=1;  //for the opcode
+    state->pc+=opbytes;  //for the opcode
     return opbytes;
 }
